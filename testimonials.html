@@ -2,86 +2,136 @@
 <html>
     <head>
         <title> Testimonial </title>
+        <!-- Bootstrap CSS for styling and responsive design -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <!-- Bootstrap JavaScript for interactive components -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
         <style>
+            /* Custom CSS for the parrot green buttons */
+            .btn-parrot-green {
+                background-color: #30c73f;  /* Bright parrot green background */
+                border-color: #30c73f;      /* Matching border color */
+                color: #fff;                /* White text for contrast */
+            }
+            /* Hover and focus states for the buttons */
+            .btn-parrot-green:hover, .btn-parrot-green:focus {
+                background-color: #30c73f;  /* Keep the same color on hover */
+                border-color: #30c73f;      /* Keep the same border color on hover */
+                color: #fff;                /* Keep white text on hover */
+            }
         </style>
     </head>
     <body>
+        <!-- Input section for adding new testimonials -->
         <div class="container-fluid pt-5 text-center" style="max-width: 80%;">
+            <!-- Name input field -->
             <div class="input-group mb-3">
                 <span class="input-group-text me-1 text-white bg-primary col-sm-2 justify-content-center" id="basic-addon1" style="min-width: 63px;">Name</span>
                 <input type="text" id="name" class="form-control border-dark" placeholder="Your Name" aria-label="Your Name" aria-describedby="basic-addon1">
             </div>
+            <!-- Message input field -->
             <div class="input-group mb-3">
                 <span class="input-group-text me-1 text-white bg-primary col-sm-2 justify-content-center" id="basic-addon1" style="min-width: 63px;">Message</span>
                 <textarea id="message" class="form-control border-dark" aria-label="With textarea" placeholder="Your Message"></textarea>
             </div>
-            <button type="button" class="btn btn-success px-5" onclick="addTestimonial('new', event, '')">Submit</button>
+            <!-- Submit button with parrot green styling -->
+            <button type="button" class="btn btn-parrot-green px-5" onclick="addTestimonial('new', event, '')">Submit</button>
         </div>
+        
+        <!-- Container to display all testimonials -->
         <div class="container-fluid pt-5" id="testimonialclass" style="max-width: 80%;">
-            <h1>
-                Testimonials
-            </h1>
-            
-            
+            <h1>Testimonials</h1>
+            <!-- Testimonials will be dynamically added here by JavaScript -->
         </div>
 
         <script>
+            /**
+             * Adds a new testimonial or edits an existing one
+             * @param {string} type - 'new' for new testimonial, 'edit' for editing existing
+             * @param {Event} event - The click event
+             * @param {HTMLElement} target - The testimonial element to edit (for edit mode)
+             */
             function addTestimonial(type, event, target){
                 if(type === 'new'){
+                    // Get values from input fields
                     name = document.getElementById("name").value;
-                    message=document.getElementById("message").value;
+                    message = document.getElementById("message").value;
 
+                    // Create HTML template for new testimonial
                     let testimonialblock = `<div class = "border border-2 border-success rounded-5 container-fluid p-4 mb-3" id="Testimonial">
                     <div class="row pb-3 align-items-center">
                         <div class="col" id="test-name">
-                            ${name}
+                            ${name}  <!-- Display the name -->
                         </div>  
                         <div class="col-3">
                             <div class="row col">
                                 <div class="btn-group" role="group" aria-label="Link group">
-                                    <button type="button" href="#" onclick="edittestimonial(event)" class="btn btn-success col-sm-2">Edit</button>
+                                    <!-- Edit button with parrot green styling -->
+                                    <button type="button" href="#" onclick="edittestimonial(event)" class="btn btn-parrot-green col-sm-2">Edit</button>
                                     <span class="text-white align-self-center">|</span>
-                                    <button type="button" href="#" onclick="deletetestimonial(event)" class="btn btn-success col-sm-2">Delete</button>
+                                    <!-- Delete button with parrot green styling -->
+                                    <button type="button" href="#" onclick="deletetestimonial(event)" class="btn btn-parrot-green col-sm-2">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col" id="test-message">
-                            ${message}
+                            ${message}  <!-- Display the message -->
                         </div>
                     </div>
                 </div>`
 
-                document.getElementById("testimonialclass").innerHTML+=testimonialblock;
+                // Add the new testimonial to the page
+                document.getElementById("testimonialclass").innerHTML += testimonialblock;
                 
+                // Clear the input fields
                 document.getElementById("name").value = "";
                 document.getElementById("message").value = "";
-            }else{
-                console.log(target)
+            } else {
+                // Editing an existing testimonial
+                console.log(target);
+                // Update the testimonial with new values
                 target.querySelector("#test-message").innerText = document.getElementById("message").value;
                 target.querySelector("#test-name").innerText = document.getElementById("name").value;
-                document.getElementsByClassName("btn btn-success px-5")[0].innerText = "Submit";
-                document.getElementsByClassName("btn btn-success px-5")[0].onclick = function onclick(event){addTestimonial('new', event, '')}
+                
+                // Reset the button to Submit mode
+                document.getElementsByClassName("btn btn-parrot-green px-5")[0].innerText = "Submit";
+                document.getElementsByClassName("btn btn-parrot-green px-5")[0].onclick = function onclick(event){addTestimonial('new', event, '')}
 
+                // Clear the input fields
                 document.getElementById("name").value = "";
                 document.getElementById("message").value = "";
             }
-
             }
 
+            /**
+             * Deletes a testimonial from the page
+             * @param {Event} event - The click event
+             */
             function deletetestimonial(event){
-                document.getElementById("testimonialclass").removeChild(event.srcElement.closest('[id="Testimonial"]'))
+                // Find the closest testimonial element and remove it
+                document.getElementById("testimonialclass").removeChild(event.srcElement.closest('[id="Testimonial"]'));
             }
+            
+            /**
+             * Prepares the form for editing an existing testimonial
+             * @param {Event} event - The click event
+             */
             function edittestimonial(event){
+                // Fill the form with the testimonial's current values
                 document.getElementById("message").value = event.srcElement.closest('[id="Testimonial"]').querySelector("#test-message").innerText;
                 document.getElementById("name").value = event.srcElement.closest('[id="Testimonial"]').querySelector("#test-name").innerText;
+                
+                // Get the testimonial element to edit
                 var elementp = event.srcElement.closest('[id="Testimonial"]');
-                document.getElementsByClassName("btn btn-success px-5")[0].innerText = "Edit";
-                console.log(document.getElementsByClassName("btn btn-success px-5")[0].innerText)
-                document.getElementsByClassName("btn btn-success px-5")[0].onclick = function onclick(event){addTestimonial('edit', event, elementp)}
+                
+                // Change the button to Edit mode
+                document.getElementsByClassName("btn btn-parrot-green px-5")[0].innerText = "Edit";
+                console.log(document.getElementsByClassName("btn btn-parrot-green px-5")[0].innerText);
+                
+                // Set the button to call addTestimonial in edit mode
+                document.getElementsByClassName("btn btn-parrot-green px-5")[0].onclick = function onclick(event){addTestimonial('edit', event, elementp)};
             }
         </script>
     </body>
