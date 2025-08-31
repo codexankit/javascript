@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS classwork</title>
+    </head>
+
+    <body>
+        <h2>Fibonacci Series (first 10 numbers)</h2>
+        <button onclick="displayFibonacci()">Show Fibonacci</button>
+        <div id="fibonacci"></div>
+
+        <h2>Table of 8</h2>
+        <button onclick="displayTableOf8()">Show table of 8</button>
+        <div id="table8"></div>
+
+        <script>
+            function displayFibonacci(){
+                let n1 = 0, n2 = 1, next;
+                let result = "";
+                for(let i = 1; i <= 10; i++){
+                    result += n1 + " ";
+                    next = n1 + n2;
+                    n1 = n2;
+                    n2 = next;
+                }
+                document.getElementById("fibonacci").innerHTML = result;
+            }
+
+            function displayTableOf8(){
+                let result = "";
+                for(let i = 1; i <= 10; i++){
+                    result += `8 x ${i} = ${8 * i}<br>`;
+                }
+                document.getElementById("table8").innerHTML = result;
+            }
+            // call the functions
+            //displayFibonacci();
+            //displayTableOf8();
+        </script>
+
+    </body>
+</html>
