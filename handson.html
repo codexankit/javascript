@@ -1,42 +1,151 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>JS classwork</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Hands-on</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #31c94d;
+            padding-bottom: 10px;
+        }
+        .question {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #31c94d;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #28a745;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #31c94d;
+        }
+        input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Hands-on</h1>
+    
+    <!-- Question 1 -->
+    <div class="question">
+        <h3>1. Convert Array Values to Uppercase</h3>
+        <p>Original array: ["mY", "namE", "is", "ANKIt", "prEm"]</p>
+        <button onclick="convertToUppercase()">Convert to Uppercase</button>
+        <div id="result1" class="result">Result will appear here</div>
+    </div>
+    
+    <!-- Question 2 -->
+    <div class="question">
+        <h3>2. Display Array Values in List Format</h3>
+        <p>Array: ["JavaScript", "HTML", "CSS", "Bootstrap", "React"]</p>
+        <button onclick="displayList()">Display as List</button>
+        <div id="result2" class="result">List will appear here</div>
+    </div>
+    
+    <!-- Question 3 -->
+    <div class="question">
+        <h3>3. Validate Name Input (Alphabets Only)</h3>
+        <p>Enter your name (alphabets only):</p>
+        <input type="text" id="nameInput" placeholder="Enter your name">
+        <button onclick="validateName()">Validate Name</button>
+        <div id="result3" class="result">Validation result will appear here</div>
+        <div id="errorMsg" class="error"></div>
+    </div>
 
-    <body>
-        <h2>Fibonacci Series (first 10 numbers)</h2>
-        <button onclick="displayFibonacci()">Show Fibonacci</button>
-        <div id="fibonacci"></div>
-
-        <h2>Table of 8</h2>
-        <button onclick="displayTableOf8()">Show table of 8</button>
-        <div id="table8"></div>
-
-        <script>
-            function displayFibonacci(){
-                let n1 = 0, n2 = 1, next;
-                let result = "";
-                for(let i = 1; i <= 10; i++){
-                    result += n1 + " ";
-                    next = n1 + n2;
-                    n1 = n2;
-                    n2 = next;
-                }
-                document.getElementById("fibonacci").innerHTML = result;
+    <script>
+        // Question 1: Convert array values to uppercase
+        function convertToUppercase() {
+            // Original array
+            let arr = ["mY", "namE", "is", "ANKIt", "prEm"];
+            
+            // Convert each element to uppercase
+            let uppercaseArr = arr.map(word => word.toUpperCase());
+            
+            // Display the result
+            document.getElementById("result1").innerHTML = 
+                "Original: [" + arr.join(", ") + "]<br>" +
+                "Uppercase: <strong>[" + uppercaseArr.join(", ") + "]</strong>";
+        }
+        
+        // Question 2: Display array values in list format
+        function displayList() {
+            // Sample array
+            let languages = ["JavaScript", "HTML", "CSS", "Bootstrap", "React"];
+            
+            // Create HTML for the list
+            let listHTML = "<ul>";
+            for (let i = 0; i < languages.length; i++) {
+                listHTML += "<li>" + languages[i] + "</li>";
             }
-
-            function displayTableOf8(){
-                let result = "";
-                for(let i = 1; i <= 10; i++){
-                    result += `8 x ${i} = ${8 * i}<br>`;
-                }
-                document.getElementById("table8").innerHTML = result;
+            listHTML += "</ul>";
+            
+            // Display the list
+            document.getElementById("result2").innerHTML = listHTML;
+        }
+        
+        // Question 3: Validate name input (alphabets only)
+        function validateName() {
+            // Get the input value
+            let name = document.getElementById("nameInput").value;
+            let errorElement = document.getElementById("errorMsg");
+            let resultElement = document.getElementById("result3");
+            
+            // Regular expression to check for alphabets and spaces only
+            let regex = /^[A-Za-z\s]+$/;
+            
+            // Validate the input
+            if (name === "") {
+                errorElement.textContent = "Please enter a name";
+                resultElement.textContent = "";
+            } else if (regex.test(name)) {
+                errorElement.textContent = "";
+                resultElement.innerHTML = "<span style='color: #27ae60;'>Valid name: " + name + "</span>";
+            } else {
+                errorElement.textContent = "Please enter only alphabets";
+                resultElement.textContent = "";
             }
-            // call the functions
-            //displayFibonacci();
-            //displayTableOf8();
-        </script>
-
-    </body>
+        }
+    </script>
+</body>
 </html>
