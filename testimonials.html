@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Testimonial </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <style>
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid pt-5 text-center" style="max-width: 80%;">
+            <div class="input-group mb-3">
+                <span class="input-group-text me-1 text-white bg-primary col-sm-2 justify-content-center" id="basic-addon1" style="min-width: 63px;">Name</span>
+                <input type="text" id="name" class="form-control border-dark" placeholder="Your Name" aria-label="Your Name" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text me-1 text-white bg-primary col-sm-2 justify-content-center" id="basic-addon1" style="min-width: 63px;">Message</span>
+                <textarea id="message" class="form-control border-dark" aria-label="With textarea" placeholder="Your Message"></textarea>
+            </div>
+            <button type="button" class="btn btn-success px-5" onclick="addTestimonial('new', event, '')">Submit</button>
+        </div>
+        <div class="container-fluid pt-5" id="testimonialclass" style="max-width: 80%;">
+            <h1>
+                Testimonials
+            </h1>
+            
+            
+        </div>
+
+        <script>
+            function addTestimonial(type, event, target){
+                if(type === 'new'){
+                    name = document.getElementById("name").value;
+                    message=document.getElementById("message").value;
+
+                    let testimonialblock = `<div class = "border border-2 border-success rounded-5 container-fluid p-4 mb-3" id="Testimonial">
+                    <div class="row pb-3 align-items-center">
+                        <div class="col" id="test-name">
+                            ${name}
+                        </div>  
+                        <div class="col-3">
+                            <div class="row col">
+                                <div class="btn-group" role="group" aria-label="Link group">
+                                    <button type="button" href="#" onclick="edittestimonial(event)" class="btn btn-success col-sm-2">Edit</button>
+                                    <span class="text-white align-self-center">|</span>
+                                    <button type="button" href="#" onclick="deletetestimonial(event)" class="btn btn-success col-sm-2">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" id="test-message">
+                            ${message}
+                        </div>
+                    </div>
+                </div>`
+
+                document.getElementById("testimonialclass").innerHTML+=testimonialblock;
+                
+                document.getElementById("name").value = "";
+                document.getElementById("message").value = "";
+            }else{
+                console.log(target)
+                target.querySelector("#test-message").innerText = document.getElementById("message").value;
+                target.querySelector("#test-name").innerText = document.getElementById("name").value;
+                document.getElementsByClassName("btn btn-success px-5")[0].innerText = "Submit";
+                document.getElementsByClassName("btn btn-success px-5")[0].onclick = function onclick(event){addTestimonial('new', event, '')}
+
+                document.getElementById("name").value = "";
+                document.getElementById("message").value = "";
+            }
+
+            }
+
+            function deletetestimonial(event){
+                document.getElementById("testimonialclass").removeChild(event.srcElement.closest('[id="Testimonial"]'))
+            }
+            function edittestimonial(event){
+                document.getElementById("message").value = event.srcElement.closest('[id="Testimonial"]').querySelector("#test-message").innerText;
+                document.getElementById("name").value = event.srcElement.closest('[id="Testimonial"]').querySelector("#test-name").innerText;
+                var elementp = event.srcElement.closest('[id="Testimonial"]');
+                document.getElementsByClassName("btn btn-success px-5")[0].innerText = "Edit";
+                console.log(document.getElementsByClassName("btn btn-success px-5")[0].innerText)
+                document.getElementsByClassName("btn btn-success px-5")[0].onclick = function onclick(event){addTestimonial('edit', event, elementp)}
+            }
+        </script>
+    </body>
+</html>
