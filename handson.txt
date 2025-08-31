@@ -1,0 +1,4 @@
+Hands-on
+1.	Create an array of Strings which contains the values like [“sTandarD”,”CharTered”,”banK”] then replace the array values with corresponding Uppercase values only. [“STANDARD”,”CHARTERED”,”BANK”]
+2.	Create an array of strings and display its values in list format in browser.
+3.	Take input from the name text box and validate to check if it contains only alphabets or not. If it does not contain, display the error message next to the text box “please enter only alphabets”.
